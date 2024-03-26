@@ -1,19 +1,19 @@
 import Grid from "@mui/material/Grid";
 import FormularioLogin from "../components/login/formulario";
-import COLORS from "../constant/COLORS";
+import LogoLogin from "../components/login/logo";
+
 
 const Login = () => {
+
+  
   return (
-    <div
-      style={{ height: "100%", width: "100%", backgroundColor: COLORS.primary }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={4}>
-          <FormularioLogin />
-        </Grid>
-      
+    <Grid container  style={{ minHeight: "100vh" }} alignItems="center" justifyContent="space-evenly">
+      <Grid><LogoLogin/></Grid>
+      <Grid item xs={10} sm={6} md={3} >
+        <FormularioLogin />
       </Grid>
-    </div>
+    </Grid>
+    
   );
 };
 
