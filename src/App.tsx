@@ -1,10 +1,10 @@
+import AppRouter from "./routers/navigation";
+import "./index.css"
 
 
 function App() {
   return (
-    <div >
-      <h1>Tela Principal</h1>
-    </div>
+    <AppRouter/>
   );
 }
 
