@@ -1,5 +1,8 @@
 import Login from "./login";
+import DadosPrincipais from "./dadosPrincipais";
 
 export{
-    Login
+    Login,
+    DadosPrincipais
+
 }
