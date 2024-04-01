@@ -2,7 +2,11 @@ import { Button, Grid } from "@mui/material";
 import COLORS from "../../constant/COLORS";
 import FONT from "../../constant/FONT";
 
-const BotaoLogin = () => {
+interface BotaoLoginProps {
+  handler: Function;
+}
+
+const BotaoLogin = (props: BotaoLoginProps) => {
   return (
     <Button
       style={{
@@ -16,6 +20,7 @@ const BotaoLogin = () => {
         marginTop: 20
       }}
       variant="contained"
+      onClick={(e) => {props.handler()}}
     >
       Login
     </Button>

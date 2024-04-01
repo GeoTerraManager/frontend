@@ -4,7 +4,16 @@ import BotaoLogin from "./botaoLogin";
 import COLORS from "../../constant/COLORS";
 import FONT from "../../constant/FONT";
 
-const FormularioLogin = () => {
+interface FormularioLoginProps {
+  username?: string;
+  usernameHandler: Function;
+  senha?: string;
+  senhaHandler: Function;
+  loginHandler: Function;
+}
+
+const FormularioLogin = (props: FormularioLoginProps) => {
+
   return (
     <Container
       fixed
@@ -27,9 +36,19 @@ const FormularioLogin = () => {
       >
         BEM-VINDO
       </h1>
-      <InputLogin placeholder="Email" />
-      <InputLogin placeholder="Senha" />
-      <BotaoLogin />
+      <InputLogin 
+        placeholder="Nome de Usuario" 
+        value={props.username}
+        handler={props.usernameHandler}
+      />
+      <InputLogin 
+        placeholder="Senha"
+        value={props.senha}
+        handler={props.senhaHandler} 
+      />
+      <BotaoLogin 
+        handler={props.loginHandler}
+      />
       <p style={{alignSelf: "center", marginTop: 30,color: COLORS.primary}}>Esqueci minha senha</p>
     </Container>
   );
