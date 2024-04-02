@@ -4,6 +4,7 @@ import COLORS from "../../constant/COLORS";
 interface InputLoginProps {
   placeholder: string;
   value?: string;
+  handler: Function;
 }
 
 const inputStyle = `
@@ -24,7 +25,7 @@ const inputStyle = `
   }
 `;
 
-const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value }) => {
+const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value, handler }) => {
   return (
     <>
       <style>{inputStyle}</style>
@@ -32,6 +33,7 @@ const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value }) => {
         className="custom-input" // Adicionando uma classe CSS para estilização adicional
         placeholder={placeholder}
         value={value}
+        onChange={(e) => handler(e.target.value)}
       />
     </>
   );
