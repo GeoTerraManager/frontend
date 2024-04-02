@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import LinearProgress from '@mui/material/LinearProgress';
-
+import COLORS from '../../constant/COLORS';
 
 interface Column {
   id: 'projeto' | 'revisor' | 'andamento' | 'inicio' | 'fim';
@@ -90,7 +90,7 @@ export default function DataTable() {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 220 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -98,7 +98,7 @@ export default function DataTable() {
                 <TableCell
                   key={column.id}
                   align={column.align || 'left'}
-                  style={{ minWidth: column.minWidth }}
+                  style={{ minWidth: column.minWidth}}
                 >
                   {column.label}
                 </TableCell>
@@ -114,7 +114,7 @@ export default function DataTable() {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align || 'left'}>
+                        <TableCell key={column.id} align={column.align || 'left'} >
                           {value}
                         </TableCell>
                       );
@@ -133,6 +133,7 @@ export default function DataTable() {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        
       />
     </Paper>
   );
