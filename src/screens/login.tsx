@@ -3,6 +3,7 @@ import FormularioLogin from "../components/login/formulario";
 import LogoLogin from "../components/login/logo";
 
 import { useState } from "react";
+import MainNavbar from "../components/navbar/navbar";
 
 import COLORS from "../constant/COLORS";
 
