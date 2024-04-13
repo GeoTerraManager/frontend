@@ -5,9 +5,11 @@ import COLORS from "../constant/COLORS";
 import { useAuth } from "../context/AuthContext";
 import MainNavbar from "../components/navbar/navbar";
 import NaoAutorizado from "../components/Errors/NãoAutorizado";
+import GraficoStatus from "../components/graficoStatus";
 import Title from "../components/Title";
 
-const DadosPrincipais = () => {
+
+const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
 
   return (
@@ -16,16 +18,11 @@ const DadosPrincipais = () => {
     ) : authorized ? (
      
         
-      <Grid container alignItems="center" justifyContent="center">
-      <MainNavbar/>
-        <Grid item xs={11} sm={11} md={11} style={{marginTop: 50}}>
-         <Title>Hoje</Title>
-          <DataTable />
-        </Grid>
-        <Grid item xs={11} sm={11} md={11}>
-          <Title>Semana Passada</Title>
-          <DataTable />
-        </Grid>
+      <Grid >
+        <MainNavbar/>
+     
+      
+      <GraficoStatus/>
       </Grid>
       
     ) : (
@@ -34,4 +31,4 @@ const DadosPrincipais = () => {
   );
 };
 
-export default DadosPrincipais;
+export default DadosProjeto;

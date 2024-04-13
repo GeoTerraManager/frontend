@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { DadosPrincipais, Login } from "../screens";
+import { DadosPrincipais, Login, DadosProjeto } from "../screens";
 
 function AppRouter() {
   return (
@@ -8,6 +8,7 @@ function AppRouter() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/dados-principais" element={<DadosPrincipais />} />
+        <Route path="/dados-projeto" element={<DadosProjeto />} />
       </Routes>
     </Router>
   );
