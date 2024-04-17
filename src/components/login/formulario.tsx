@@ -3,14 +3,8 @@ import InputLogin from "./inputsLogin";
 import BotaoLogin from "./botaoLogin";
 import COLORS from "../../constant/COLORS";
 import FONT from "../../constant/FONT";
+import FormularioLoginProps from "../../types/FormularioLoginProps";
 
-interface FormularioLoginProps {
-  username?: string;
-  usernameHandler: Function;
-  senha?: string;
-  senhaHandler: Function;
-  loginHandler: Function;
-}
 
 const FormularioLogin = (props: FormularioLoginProps) => {
 

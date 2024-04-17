@@ -1,10 +1,10 @@
 import { PieChart } from "@mui/x-charts/PieChart";
 import SubTitle from "../Title/subTitle";
 
-const GraficoStatus = () => {
+const GraficoRecorrencia = () => {
   return (
-    <div>
-      <SubTitle>Status</SubTitle>
+    <div style={{ width: "100%", maxWidth: "350px" }}>
+      <SubTitle>Recorrência:</SubTitle>
       <PieChart
         colors={["red", "blue", "green"]}
         series={[
@@ -12,8 +12,9 @@ const GraficoStatus = () => {
             data: [
               { id: 0, value: 25, label: "Em Andamento", color: "blue" },
               { id: 1, value: 30, label: "Feito", color: "green" },
-              { id: 2, value: 10, label: "Parado", color: "red" },
             ],
+            innerRadius: 25,
+            outerRadius: 45,
             cx: 50,
           },
         ]}
@@ -24,4 +25,4 @@ const GraficoStatus = () => {
   );
 };
 
-export default GraficoStatus;
+export default GraficoRecorrencia;
