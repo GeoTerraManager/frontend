@@ -39,6 +39,7 @@ const FormularioLogin = (props: FormularioLoginProps) => {
         placeholder="Senha"
         value={props.senha}
         handler={props.senhaHandler} 
+        type="password"
       />
       <BotaoLogin 
         handler={props.loginHandler}
