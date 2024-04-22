@@ -1,9 +1,10 @@
 import { PieChart } from "@mui/x-charts/PieChart";
-import SubTitle from "../Title/subTitle";
+import SubTitle from "../../Title/subTitle";
+import { Grid } from "@mui/material";
 
 const GraficoRecorrencia = () => {
   return (
-    <div style={{ width: "100%", maxWidth: "350px" }}>
+    <Grid item md={2} xs={10}>
       <SubTitle>Recorrência:</SubTitle>
       <PieChart
         colors={["red", "blue", "green"]}
@@ -21,7 +22,7 @@ const GraficoRecorrencia = () => {
         width={270}
         height={100}
       />
-    </div>
+    </Grid>
   );
 };
 

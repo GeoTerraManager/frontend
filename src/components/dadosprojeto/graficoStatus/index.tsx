@@ -1,9 +1,10 @@
 import { PieChart } from "@mui/x-charts/PieChart";
-import SubTitle from "../Title/subTitle";
+import SubTitle from "../../Title/subTitle";
+import { Grid } from "@mui/material";
 
 const GraficoStatus = () => {
   return (
-    <div>
+    <Grid item md={2} xs={10}>
       <SubTitle>Status</SubTitle>
       <PieChart
         colors={["red", "blue", "green"]}
@@ -20,7 +21,7 @@ const GraficoStatus = () => {
         width={270}
         height={100}
       />
-    </div>
+    </Grid>
   );
 };
 
