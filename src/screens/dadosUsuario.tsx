@@ -5,10 +5,8 @@ import NaoAutorizado from "../components/Errors/NãoAutorizado";
 import GraficoStatus from "../components/dadosprojeto/graficoStatus";
 import Title from "../components/Title/title";
 import GraficoRecorrencia from "../components/dadosprojeto/graficoRecorrencia";
-import Equipe from "../components/dadosprojeto/equipe";
-import Poligonos from "../components/dadosprojeto/poligonos";
 
-const DadosProjeto = () => {
+const DadosUsuario = () => {
   const { loading, authorized } = useAuth();
 
   return loading ? (
@@ -17,17 +15,11 @@ const DadosProjeto = () => {
     <Grid>
       <MainNavbar />
 
-      <Title styles={{ marginTop: 100 }}>Nome Projeto</Title>
-      <Grid container item justifyContent="space-around">
-        <Equipe />
-        <Poligonos />
-        <GraficoStatus subtitle="Status" />
+      <Title styles={{ marginTop: 100 }}>Nome Usuario</Title>
+      <Grid container justifyContent="space-around">
         <GraficoRecorrencia />
-      </Grid>
-      <Grid>
-        <Grid item>
-
-        </Grid>
+        <GraficoStatus subtitle="Revisor:" />
+        <GraficoStatus subtitle="Interprete:" />
       </Grid>
     </Grid>
   ) : (
@@ -35,4 +27,4 @@ const DadosProjeto = () => {
   );
 };
 
-export default DadosProjeto;
+export default DadosUsuario;
