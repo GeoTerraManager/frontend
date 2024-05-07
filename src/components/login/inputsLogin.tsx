@@ -5,6 +5,7 @@ interface InputLoginProps {
   placeholder: string;
   value?: string;
   handler: Function;
+  type?: string; 
 }
 
 const inputStyle = `
@@ -25,12 +26,13 @@ const inputStyle = `
   }
 `;
 
-const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value, handler }) => {
+const InputLogin: React.FC<InputLoginProps> = ({ placeholder, value, handler, type = "text" }) => {
   return (
     <>
       <style>{inputStyle}</style>
       <input
-        className="custom-input" // Adicionando uma classe CSS para estilização adicional
+        className="custom-input" 
+        type={type} 
         placeholder={placeholder}
         value={value}
         onChange={(e) => handler(e.target.value)}
