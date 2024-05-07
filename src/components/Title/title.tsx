@@ -17,9 +17,9 @@ const Title: React.FC<TitleProps> = ({ children, styles }) => {
   };
 
   return (
-    <h3 style={combinedStyles}>
+    <h1 style={combinedStyles}>
       {children}
-    </h3>
+    </h1>
   );
 };
 

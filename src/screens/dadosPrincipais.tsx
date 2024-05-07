@@ -5,7 +5,7 @@ import COLORS from "../constant/COLORS";
 import { useAuth } from "../context/AuthContext";
 import MainNavbar from "../components/navbar/navbar";
 import NaoAutorizado from "../components/Errors/NãoAutorizado";
-import Title from "../components/Title";
+import Title from "../components/Title/title";
 
 const DadosPrincipais = () => {
   const { loading, authorized } = useAuth();
