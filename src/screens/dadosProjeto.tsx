@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import MainNavbar from "../components/navbar/navbar";
 import NaoAutorizado from "../components/Errors/NãoAutorizado";
@@ -7,8 +7,10 @@ import Title from "../components/Title/title";
 import GraficoRecorrencia from "../components/dadosprojeto/graficoRecorrencia";
 import Equipe from "../components/dadosprojeto/equipe";
 import Poligonos from "../components/dadosprojeto/poligonos";
+
 import DataTableUsuario from "../components/datatable/dataTableUsuario";
 import SubTitle from "../components/Title/subTitle";
+
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
@@ -26,6 +28,7 @@ const DadosProjeto = () => {
         <GraficoStatus subtitle="Status" />
         <GraficoRecorrencia />
       </Grid>
+
       <Grid
         container
         alignItems="center"
@@ -36,6 +39,7 @@ const DadosProjeto = () => {
           <SubTitle>Interpretes</SubTitle>
           <DataTableUsuario />
         </Grid>
+
       </Grid>
     </Grid>
   ) : (
