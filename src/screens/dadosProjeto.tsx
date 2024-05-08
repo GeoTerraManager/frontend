@@ -7,11 +7,10 @@ import Title from "../components/Title/title";
 import GraficoRecorrencia from "../components/dadosprojeto/graficoRecorrencia";
 import Equipe from "../components/dadosprojeto/equipe";
 import Poligonos from "../components/dadosprojeto/poligonos";
+
+import DataTableUsuario from "../components/datatable/dataTableUsuario";
 import SubTitle from "../components/Title/subTitle";
-import {
-  DadosInterprete,
-  DadosRevisores,
-} from "../components/dadosprojeto/dadosCargo";
+
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
@@ -23,7 +22,7 @@ const DadosProjeto = () => {
       <MainNavbar />
 
       <Title styles={{ marginTop: 100 }}>Nome Projeto</Title>
-      <Grid container item justifyContent="space-around">
+      <Grid container justifyContent="space-around">
         <Equipe />
         <Poligonos />
         <GraficoStatus subtitle="Status" />
@@ -32,12 +31,14 @@ const DadosProjeto = () => {
 
       <Grid
         container
-        item
-        justifyContent="space-around"
+        alignItems="center"
+        justifyContent="center"
         style={{ marginBottom: 30 }}
       >
-        <DadosRevisores />
-        <DadosInterprete />
+        <Grid item xs={11} sm={11} md={11}>
+          <SubTitle>Interpretes</SubTitle>
+          <DataTableUsuario />
+        </Grid>
 
       </Grid>
     </Grid>
