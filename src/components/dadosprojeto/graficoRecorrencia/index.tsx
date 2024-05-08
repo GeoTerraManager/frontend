@@ -11,7 +11,7 @@ const GraficoRecorrencia = () => {
         series={[
           {
             data: [
-              { id: 0, value: 25, label: "Em Andamento", color: "blue" },
+              { id: 0, value: 25, label: "Andamento", color: "blue" },
               { id: 1, value: 30, label: "Feito", color: "green" },
             ],
             innerRadius: 25,

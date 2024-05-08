@@ -26,9 +26,10 @@ const DadosProjeto = () => {
       <Grid container item justifyContent="space-around">
         <Equipe />
         <Poligonos />
-        <GraficoStatus />
+        <GraficoStatus subtitle="Status" />
         <GraficoRecorrencia />
       </Grid>
+
       <Grid
         container
         item
@@ -37,6 +38,7 @@ const DadosProjeto = () => {
       >
         <DadosRevisores />
         <DadosInterprete />
+
       </Grid>
     </Grid>
   ) : (
