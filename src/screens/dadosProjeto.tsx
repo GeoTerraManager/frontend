@@ -8,35 +8,39 @@ import GraficoRecorrencia from "../components/dadosprojeto/graficoRecorrencia";
 import Equipe from "../components/dadosprojeto/equipe";
 import Poligonos from "../components/dadosprojeto/poligonos";
 import SubTitle from "../components/Title/subTitle";
-import { DadosInterprete, DadosRevisores } from "../components/dadosprojeto/dadosCargo";
+import {
+  DadosInterprete,
+  DadosRevisores,
+} from "../components/dadosprojeto/dadosCargo";
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
 
-  // return loading ? (
-  //   <p>Loading...</p>
-  // ) : authorized ? (
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : authorized ? (
     <Grid>
       <MainNavbar />
 
       <Title styles={{ marginTop: 100 }}>Nome Projeto</Title>
-      <Grid container item justifyContent="space-around" >
+      <Grid container item justifyContent="space-around">
         <Equipe />
         <Poligonos />
         <GraficoStatus />
         <GraficoRecorrencia />
       </Grid>
-      <Grid container item justifyContent="space-around" style={{marginBottom: 30}}>
-        <DadosRevisores/>
-        <DadosInterprete/>
+      <Grid
+        container
+        item
+        justifyContent="space-around"
+        style={{ marginBottom: 30 }}
+      >
+        <DadosRevisores />
+        <DadosInterprete />
       </Grid>
-      
-      
     </Grid>
-    // ) : (
-    //   <NaoAutorizado />
-    // );
+  ) : (
+    <NaoAutorizado />
   );
 };
 
