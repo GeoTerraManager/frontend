@@ -19,11 +19,7 @@ const DadosPrincipais = () => {
       <Grid container alignItems="center" justifyContent="center">
       <MainNavbar/>
         <Grid item xs={11} sm={11} md={11} style={{marginTop: 50}}>
-         <Title>Hoje</Title>
-          <DataTable />
-        </Grid>
-        <Grid item xs={11} sm={11} md={11}>
-          <Title>Semana Passada</Title>
+         <Title>Projetos</Title>
           <DataTable />
         </Grid>
       </Grid>
