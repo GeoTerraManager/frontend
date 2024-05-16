@@ -1,10 +1,13 @@
+import AppRouter from "./routers/navigation";
+import "./index.css"
+import { AuthProvider } from "./context/AuthContext";
 
 
 function App() {
   return (
-    <div >
-      <h1>Tela Principal</h1>
-    </div>
+    <AuthProvider>
+    <AppRouter/>
+    </AuthProvider>
   );
 }
 
