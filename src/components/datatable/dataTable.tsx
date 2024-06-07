@@ -11,9 +11,16 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import getAllProjects from "../../services/getAllProjects";
 import ProjectData from "../../types/projectData";
+import { usePageData } from "../../context/PageDataContext";
 
 interface Column {
-  id: "nomeProjeto" | "qtdAlteracao" | "qtdApontamentos" | "qtdGradeFeita" | "qtdGradeAndamento" | "qtdGradePendente";
+  id:
+    | "nomeProjeto"
+    | "qtdAlteracao"
+    | "qtdApontamentos"
+    | "qtdGradeFeita"
+    | "qtdGradeAndamento"
+    | "qtdGradePendente";
   label: string;
   minWidth?: number;
   align?: "right";
@@ -21,7 +28,7 @@ interface Column {
 
 const columns: readonly Column[] = [
   { id: "nomeProjeto", label: "Projeto", minWidth: 170 },
-  { id: "qtdAlteracao", label: "Alteraçes", minWidth: 100 },
+  { id: "qtdAlteracao", label: "Alterações", minWidth: 100 },
   {
     id: "qtdApontamentos",
     label: "Apontamentos",
@@ -45,6 +52,7 @@ const columns: readonly Column[] = [
 ];
 
 export default function DataTable() {
+  const { setData } = usePageData();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<ProjectData[]>([]);
@@ -56,6 +64,7 @@ export default function DataTable() {
         const data = await getAllProjects();
         if (data !== undefined) {
           setRows(data);
+          setData(data); // Set the data in the context
         } else {
           throw new Error("Failed to fetch data");
         }
@@ -67,7 +76,7 @@ export default function DataTable() {
     };
 
     fetchData();
-  }, []);
+  }, [setData]);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -116,7 +125,7 @@ export default function DataTable() {
                         >
                           {column.id === "nomeProjeto" ? (
                             <Link
-                              to="/dados-projeto"
+                              to={`/dados-projeto/${row.id}`}
                               style={{
                                 textDecoration: "none",
                                 color: "inherit",

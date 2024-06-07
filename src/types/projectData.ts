@@ -1,5 +1,5 @@
 export default interface ProjectData {
-    _id: string;
+    id: string;
     nomeProjeto: string;
     qtdAlteracao: number;
     qtdApontamentos: number
@@ -7,3 +7,6 @@ export default interface ProjectData {
     qtdGradeAndamento: number;
     qtdGradePendente: number;
   }
+
+
+

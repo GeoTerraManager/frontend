@@ -1,11 +1,18 @@
 import { Grid } from "@mui/material";
 import SubTitle from "../../Title/subTitle";
+import ProjectById from "../../../types/projectById";
 
-const Poligonos = () => {
+interface EquipeProps {
+  project: ProjectById | null;
+}
+
+
+const Poligonos = ({ project }: EquipeProps) => {
+  
   return (
     <Grid item xs={5} md={1}>
       <SubTitle>Poligonos:</SubTitle>
-      <p>230</p>
+      <p>{project ? project.qtdGrades : "-"}</p>
     </Grid>
   );
 };

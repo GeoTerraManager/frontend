@@ -17,9 +17,9 @@ const DadosUsuario = () => {
 
       <Title styles={{ marginTop: 100 }}>Nome Usuario</Title>
       <Grid container justifyContent="space-around">
-        <GraficoRecorrencia />
+      {/* <GraficoRecorrencia /> 
         <GraficoStatus subtitle="Revisor:" />
-        <GraficoStatus subtitle="Interprete:" />
+        <GraficoStatus subtitle="Interprete:" />  */}
       </Grid>
     </Grid>
   ) : (
