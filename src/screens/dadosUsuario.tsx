@@ -10,8 +10,7 @@ import ProjectById from "../types/projectById";
 import SubTitle from "../components/Title/subTitle";
 import DataTable from "../components/datatable/dataTable";
 import GraficoRevisao from "../components/dadosprojeto/graficoRevisao";
-
-
+import Poligonos from "../components/dadosprojeto/poligonos";
 
 const DadosUsuario = () => {
   const { loading, authorized } = useAuth();
@@ -25,20 +24,18 @@ const DadosUsuario = () => {
 
       <Title styles={{ marginTop: 100 }}>Nome Usuario</Title>
       <Grid container justifyContent="space-around">
-      <GraficoRecorrencia project={project} />
-      <GraficoRevisao project={project} /> 
-        <GraficoStatus project={project} subtitle="Status" />
-        
-       
+      <Poligonos project={project} />
+      <GraficoStatus project={project} subtitle="Status" />
+        <GraficoRecorrencia project={project} />
+      
       </Grid>
       <Grid
         container
         alignItems="center"
         justifyContent="center"
-        style={{ marginBottom: 30, marginTop:30 }}
+        style={{ marginBottom: 30, marginTop: 80 }}
       >
         <Grid item xs={11} sm={11} md={11}>
-         
           <DataTable />
         </Grid>
       </Grid>

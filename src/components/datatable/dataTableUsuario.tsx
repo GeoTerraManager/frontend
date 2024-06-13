@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,74 +9,104 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
-import getAllProjects from "../../services/getAllProjects";
-import ProjectData from "../../types/projectData";
-import { usePageData } from "../../context/PageDataContext";
 
 interface Column {
   id:
-    | "nomeProjeto"
-    | "qtdAlteracao"
-    | "qtdApontamentos"
-    | "qtdGradeFeita"
-    | "qtdGradeAndamento"
-    | "qtdGradePendente";
+    | "nome"
+    | "atribuidas"
+    | "feitas"
+    | "refazer"
+    | "refeitas"
+    | "revisadas"
+    | "inicio_projeto";
   label: string;
   minWidth?: number;
-  align?: "right";
+  align?: "center";
 }
 
 const columns: readonly Column[] = [
-  { id: "nomeProjeto", label: "Projeto", minWidth: 170 },
-  { id: "qtdAlteracao", label: "Alterações", minWidth: 100 },
+  { id: "nome", label: "Nome", minWidth: 170 },
+  { id: "atribuidas", label: "Atribuidas", minWidth: 100 },
   {
-    id: "qtdApontamentos",
-    label: "Apontamentos",
+    id: "refazer",
+    label: "Refazer",
     minWidth: 170,
   },
   {
-    id: "qtdGradeFeita",
-    label: "Grades Feitas",
+    id: "refeitas",
+    label: "Refeitas",
     minWidth: 170,
   },
   {
-    id: "qtdGradeAndamento",
-    label: "Grades em Andamento",
+    id: "revisadas",
+    label: "Revisadas",
     minWidth: 170,
   },
   {
-    id: "qtdGradePendente",
-    label: "Grades Pendentes",
+    id: "inicio_projeto",
+    label: "Inicio Projeto",
     minWidth: 170,
   },
 ];
 
-export default function DataTable() {
-  const { setData } = usePageData();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows] = useState<ProjectData[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Data {
+  nome: string;
+  atribuidas: string;
+  feitas: string;
+  refazer: string;
+  refeitas: number;
+  revisadas: React.ReactNode;
+  inicio_projeto: string;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getAllProjects();
-        if (data !== undefined) {
-          setRows(data);
-          setData(data); // Set the data in the context
-        } else {
-          throw new Error("Failed to fetch data");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+function createData(
+  nome: string,
+  atribuidas: string,
+  feitas: string,
+  refazer: string,
+  refeitas: number,
+  revisadas: React.ReactNode,
+  inicio_projeto: string
+): Data {
+  return {
+    nome,
+    atribuidas,
+    feitas,
+    refazer,
+    refeitas,
+    revisadas,
+    inicio_projeto,
+  };
+}
 
-    fetchData();
-  }, [setData]);
+const rows = [
+  createData(
+    "John Doe",
+    "10",
+    "8",
+    "2",
+    5,
+    <LinearProgress variant="determinate" value={50} />,
+    "2024-01-01"
+  ),
+  createData(
+    "Jane Smith",
+    "8",
+    "7",
+    "1",
+    3,
+    <LinearProgress variant="determinate" value={30} />,
+    "2024-01-05"
+  ),
+];
+
+interface DataTableUsuarioProps {
+  interpretesIds: string[];
+}
+
+export default function DataTableUsuario({ interpretesIds }: DataTableUsuarioProps) {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -88,10 +118,6 @@ export default function DataTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  if (loading) {
-    return <LinearProgress />;
-  }
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -123,9 +149,9 @@ export default function DataTable() {
                           key={column.id}
                           align={column.align || "left"}
                         >
-                          {column.id === "nomeProjeto" ? (
+                          {column.id === "nome" ? (
                             <Link
-                              to={`/dados-projeto/${row.id}`}
+                              to="/dados-usuario"
                               style={{
                                 textDecoration: "none",
                                 color: "inherit",

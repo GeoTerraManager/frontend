@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,76 +7,44 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
-import getAllProjects from "../../services/getAllProjects";
-import ProjectData from "../../types/projectData";
-import { usePageData } from "../../context/PageDataContext";
 
 interface Column {
-  id:
-    | "nomeProjeto"
-    | "qtdAlteracao"
-    | "qtdApontamentos"
-    | "qtdGradeFeita"
-    | "qtdGradeAndamento"
-    | "qtdGradePendente";
+  id: "nome" | "apontamento";
   label: string;
   minWidth?: number;
-  align?: "right";
+  align?: "center";
 }
 
 const columns: readonly Column[] = [
-  { id: "nomeProjeto", label: "Projeto", minWidth: 170 },
-  { id: "qtdAlteracao", label: "Alterações", minWidth: 100 },
-  {
-    id: "qtdApontamentos",
-    label: "Apontamentos",
-    minWidth: 170,
-  },
-  {
-    id: "qtdGradeFeita",
-    label: "Grades Feitas",
-    minWidth: 170,
-  },
-  {
-    id: "qtdGradeAndamento",
-    label: "Grades em Andamento",
-    minWidth: 170,
-  },
-  {
-    id: "qtdGradePendente",
-    label: "Grades Pendentes",
-    minWidth: 170,
-  },
+  { id: "nome", label: "Nome", minWidth: 170 },
+  { id: "apontamento", label: "Apontamentos", minWidth: 170 },
 ];
 
-export default function DataTable() {
-  const { setData } = usePageData();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows] = useState<ProjectData[]>([]);
-  const [loading, setLoading] = useState(true);
+interface Data {
+  nome: string;
+  apontamento: number;
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getAllProjects();
-        if (data !== undefined) {
-          setRows(data);
-          setData(data); // Set the data in the context
-        } else {
-          throw new Error("Failed to fetch data");
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+function createData(nome: string, apontamento: number): Data {
+  return {
+    nome,
+    apontamento,
+  };
+}
 
-    fetchData();
-  }, [setData]);
+const rows = [
+  createData("John Doe", 25),
+  createData("Jane Smith", 18),
+];
+
+interface DataTableRevisorProps {
+  revisoresIds: string[];
+}
+
+export default function DataTableRevisor({ revisoresIds }: DataTableRevisorProps) {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -88,10 +56,6 @@ export default function DataTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  if (loading) {
-    return <LinearProgress />;
-  }
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -123,9 +87,9 @@ export default function DataTable() {
                           key={column.id}
                           align={column.align || "left"}
                         >
-                          {column.id === "nomeProjeto" ? (
+                          {column.id === "nome" ? (
                             <Link
-                              to={`/dados-projeto/${row.id}`}
+                              to="/dados-usuario"
                               style={{
                                 textDecoration: "none",
                                 color: "inherit",
