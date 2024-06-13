@@ -9,102 +9,66 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface Column {
-  id:
-    | "nome"
-    | "atribuidas"
-    | "feitas"
-    | "refazer"
-    | "refeitas"
-    | "revisadas"
-    | "inicio_projeto";
+  id: "nome_projeto" | "total_quadriculas_atribuidas" | "feitas" | "andamento" | "km_mapeados" | "progress";
   label: string;
   minWidth?: number;
   align?: "center";
 }
 
 const columns: readonly Column[] = [
-  { id: "nome", label: "Nome", minWidth: 170 },
-  { id: "atribuidas", label: "Atribuidas", minWidth: 100 },
-  {
-    id: "refazer",
-    label: "Refazer",
-    minWidth: 170,
-  },
-  {
-    id: "refeitas",
-    label: "Refeitas",
-    minWidth: 170,
-  },
-  {
-    id: "revisadas",
-    label: "Revisadas",
-    minWidth: 170,
-  },
-  {
-    id: "inicio_projeto",
-    label: "Inicio Projeto",
-    minWidth: 170,
-  },
+  { id: "nome_projeto", label: "Nome Projeto", minWidth: 170 },
+  { id: "total_quadriculas_atribuidas", label: "Atribuidas", minWidth: 100 },
+  { id: "feitas", label: "Feitas", minWidth: 170 },
+  { id: "andamento", label: "Andamento", minWidth: 170 },
+  { id: "km_mapeados", label: "Km Mapeados", minWidth: 170 },
+  { id: "progress", label: "Progress", minWidth: 170, align: "center" },
 ];
 
 interface Data {
-  nome: string;
-  atribuidas: string;
-  feitas: string;
-  refazer: string;
-  refeitas: number;
-  revisadas: React.ReactNode;
-  inicio_projeto: string;
+  nome_projeto: string;
+  total_quadriculas_atribuidas: number;
+  feitas: number;
+  andamento: number;
+  km_mapeados: number;
+  progress: React.ReactNode;
 }
 
 function createData(
-  nome: string,
-  atribuidas: string,
-  feitas: string,
-  refazer: string,
-  refeitas: number,
-  revisadas: React.ReactNode,
-  inicio_projeto: string
+  nome_projeto: string,
+  total_quadriculas_atribuidas: number,
+  feitas: number,
+  andamento: number,
+  km_mapeados: number
 ): Data {
+  const progressValue = (feitas / total_quadriculas_atribuidas) * 100;
   return {
-    nome,
-    atribuidas,
+    nome_projeto,
+    total_quadriculas_atribuidas,
     feitas,
-    refazer,
-    refeitas,
-    revisadas,
-    inicio_projeto,
+    andamento,
+    km_mapeados,
+    progress: <LinearProgress variant="determinate" value={progressValue} />,
   };
 }
 
 const rows = [
   createData(
-    "John Doe",
-    "10",
-    "8",
-    "2",
-    5,
-    <LinearProgress variant="determinate" value={50} />,
-    "2024-01-01"
-  ),
-  createData(
-    "Jane Smith",
-    "8",
-    "7",
-    "1",
-    3,
-    <LinearProgress variant="determinate" value={30} />,
-    "2024-01-05"
+    "Projeto teste2",
+    265,
+    171,
+    94,
+    43.18967375803099
   ),
 ];
 
 interface DataTableUsuarioProps {
-  interpretesIds: string[];
+  revisoresIds: string[];
 }
 
-export default function DataTableUsuario({ interpretesIds }: DataTableUsuarioProps) {
+export default function DataTableUsuarioRevisor({ revisoresIds }: DataTableUsuarioProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -112,9 +76,7 @@ export default function DataTableUsuario({ interpretesIds }: DataTableUsuarioPro
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -145,22 +107,20 @@ export default function DataTableUsuario({ interpretesIds }: DataTableUsuarioPro
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell
-                          key={column.id}
-                          align={column.align || "left"}
-                        >
-                          {column.id === "nome" ? (
+                        <TableCell key={column.id} align={column.align || "left"}>
+                          {column.id === "nome_projeto" ? (
                             <Link
                               to="/dados-usuario"
-                              style={{
-                                textDecoration: "none",
-                                color: "inherit",
-                              }}
+                              style={{ textDecoration: "none", color: "inherit" }}
                             >
-                              {value}
+                              {value ?? ""}
                             </Link>
                           ) : (
-                            value
+                            column.id === "progress" ? (
+                              value
+                            ) : (
+                              (value as number | undefined)?.toLocaleString() ?? ""
+                            )
                           )}
                         </TableCell>
                       );

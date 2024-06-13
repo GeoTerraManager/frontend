@@ -12,9 +12,10 @@ import getProjectById from "../services/getProjectById";
 import SubTitle from "../components/Title/subTitle";
 import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
-import DataTableUsuario from "../components/datatable/dataTableUsuario";
 import ProjectById from "../types/projectById";
 import DataTableRevisor from "../components/datatable/dataTableRevisor";
+import DataTableUsuario from "../components/datatable/dataTableUsuarioRevisor";
+import DataTableUsuarioRevisor from "../components/datatable/dataTableUsuarioRevisor";
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
@@ -61,11 +62,11 @@ const DadosProjeto = () => {
       >
         <Grid item xs={11} sm={11} md={11}>
           <SubTitle>Interpretes</SubTitle>
-         <DataTableUsuario interpretesIds={interpretesIds}/>
+         <DataTableUsuario revisoresIds={interpretesIds}/>
         </Grid>
         <Grid item xs={11} sm={11} md={11}>
           <SubTitle>Revisores</SubTitle>
-         <DataTableRevisor revisoresIds={revisoresIds}/>
+         <DataTableUsuarioRevisor revisoresIds={revisoresIds}/>
         </Grid>
       </Grid>
     </Grid>

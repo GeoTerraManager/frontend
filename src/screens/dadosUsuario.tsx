@@ -11,10 +11,12 @@ import SubTitle from "../components/Title/subTitle";
 import DataTable from "../components/datatable/dataTable";
 import GraficoRevisao from "../components/dadosprojeto/graficoRevisao";
 import Poligonos from "../components/dadosprojeto/poligonos";
+import DataTableUsuario from "../components/datatable/dataTableUsuarioRevisor";
 
 const DadosUsuario = () => {
   const { loading, authorized } = useAuth();
   const [project, setProject] = useState<ProjectById | null>(null);
+  const interpretesIds = [""]
 
   return loading ? (
     <p>Loading...</p>
@@ -36,7 +38,7 @@ const DadosUsuario = () => {
         style={{ marginBottom: 30, marginTop: 80 }}
       >
         <Grid item xs={11} sm={11} md={11}>
-          <DataTable />
+          <DataTableUsuario revisoresIds={interpretesIds}/>
         </Grid>
       </Grid>
     </Grid>
