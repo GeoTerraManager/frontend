@@ -19,7 +19,7 @@ function AppRouter() {
         <Route path="/" element={<Login />} />
         <Route path="/dados-principais" element={<WithCustomButton><DadosPrincipais /></WithCustomButton>} />
         <Route path="/dados-projeto/:id" element={<WithCustomButton><DadosProjeto /></WithCustomButton>} />
-        <Route path="/dados-usuario" element={<WithCustomButton><DadosUsuario /></WithCustomButton>} />
+        <Route path="/dados-usuario/:id" element={<WithCustomButton><DadosUsuario /></WithCustomButton>} />
       </Routes>
     </Router>
   );

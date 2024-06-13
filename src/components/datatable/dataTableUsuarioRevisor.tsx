@@ -10,9 +10,16 @@ import TableRow from "@mui/material/TableRow";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { ProjectByUser } from "../../types/userById";
 
 interface Column {
-  id: "nome_projeto" | "total_quadriculas_atribuidas" | "feitas" | "andamento" | "km_mapeados" | "progress";
+  id:
+    | "nome_projeto"
+    | "total_quadriculas_atribuidas"
+    | "feitas"
+    | "andamento"
+    | "km_mapeados"
+    | "progress";
   label: string;
   minWidth?: number;
   align?: "center";
@@ -54,21 +61,15 @@ function createData(
   };
 }
 
-const rows = [
-  createData(
-    "Projeto teste2",
-    265,
-    171,
-    94,
-    43.18967375803099
-  ),
-];
+const rows = [createData("Projeto teste2", 265, 171, 94, 43.18967375803099)];
 
-interface DataTableUsuarioProps {
-  revisoresIds: string[];
+interface DataTableUsuarioRevisorProps {
+  revisoresData: ProjectByUser[];
 }
 
-export default function DataTableUsuarioRevisor({ revisoresIds }: DataTableUsuarioProps) {
+export default function DataTableUsuarioRevisor({
+  revisoresData,
+}: DataTableUsuarioRevisorProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -76,7 +77,9 @@ export default function DataTableUsuarioRevisor({ revisoresIds }: DataTableUsuar
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -107,20 +110,25 @@ export default function DataTableUsuarioRevisor({ revisoresIds }: DataTableUsuar
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align || "left"}>
+                        <TableCell
+                          key={column.id}
+                          align={column.align || "left"}
+                        >
                           {column.id === "nome_projeto" ? (
                             <Link
                               to="/dados-usuario"
-                              style={{ textDecoration: "none", color: "inherit" }}
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit",
+                              }}
                             >
                               {value ?? ""}
                             </Link>
+                          ) : column.id === "progress" ? (
+                            value
                           ) : (
-                            column.id === "progress" ? (
-                              value
-                            ) : (
-                              (value as number | undefined)?.toLocaleString() ?? ""
-                            )
+                            (value as number | undefined)?.toLocaleString() ??
+                            ""
                           )}
                         </TableCell>
                       );

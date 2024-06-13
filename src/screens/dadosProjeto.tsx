@@ -13,15 +13,18 @@ import SubTitle from "../components/Title/subTitle";
 import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
 import ProjectById from "../types/projectById";
-import DataTableRevisor from "../components/datatable/dataTableRevisor";
-import DataTableUsuario from "../components/datatable/dataTableUsuarioRevisor";
+import DataTableUsuario from "../components/datatable/dataTableUsuarioInterprete";
 import DataTableUsuarioRevisor from "../components/datatable/dataTableUsuarioRevisor";
+import getUserById from "../services/getUserById";
+import { UserById, ProjectByUser } from "../types/userById";
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<ProjectById | null>(null);
   const { setData } = usePageData(); // Obtendo a função setData do contexto
+  const [interpretesData, setInterpretesData] = useState<ProjectByUser[]>([]);
+  const [revisoresData, setRevisoresData] = useState<ProjectByUser[]>([]);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -37,8 +40,39 @@ const DadosProjeto = () => {
     fetchProject();
   }, [id, setData]);
 
-  const interpretesIds = project?.interpretes ?? [];
-  const revisoresIds = project?.revisores ?? [];
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      if (project) {
+        const interpretes = await Promise.all(
+          project.interpretes.map((id) => getUserById(id))
+        );
+        const revisores = await Promise.all(
+          project.revisores.map((id) => getUserById(id))
+        );
+
+        const interpretesProjects = interpretes
+          .filter((user): user is UserById => user !== undefined)
+          .flatMap((user) =>
+            user.projetos.filter(
+              (proj) => proj.nome_projeto === project.nomeProjeto && proj.cargo === "INTERPRETE"
+            )
+          );
+
+        const revisoresProjects = revisores
+          .filter((user): user is UserById => user !== undefined)
+          .flatMap((user) =>
+            user.projetos.filter(
+              (proj) => proj.nome_projeto === project.nomeProjeto && proj.cargo === "REVISOR"
+            )
+          );
+
+        setInterpretesData(interpretesProjects);
+        setRevisoresData(revisoresProjects);
+      }
+    };
+
+    fetchUsersData();
+  }, [project]);
 
   return loading ? (
     <p>Loading...</p>
@@ -62,11 +96,11 @@ const DadosProjeto = () => {
       >
         <Grid item xs={11} sm={11} md={11}>
           <SubTitle>Interpretes</SubTitle>
-         <DataTableUsuario revisoresIds={interpretesIds}/>
+          <DataTableUsuario interpretesData={interpretesData} />
         </Grid>
         <Grid item xs={11} sm={11} md={11}>
           <SubTitle>Revisores</SubTitle>
-         <DataTableUsuarioRevisor revisoresIds={revisoresIds}/>
+          <DataTableUsuarioRevisor revisoresData={revisoresData} />
         </Grid>
       </Grid>
     </Grid>

@@ -9,6 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
+import { ProjectByUser } from "../../types/userById";
 
 interface Column {
   id: "nome_projeto" | "total_quadriculas_atribuidas" | "feitas" | "andamento" | "km_mapeados" | "progress";
@@ -53,15 +54,11 @@ function createData(
   };
 }
 
-const rows = [
-  createData("Projeto teste2", 200, 60, 10, 241),
-];
-
 interface DataTableUsuarioProps {
-  interpretesIds: string[];
+  interpretesData: ProjectByUser[];
 }
 
-export default function DataTableUsuarioInterprete({ interpretesIds }: DataTableUsuarioProps) {
+export default function DataTableUsuario({ interpretesData = [] }: DataTableUsuarioProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -73,6 +70,10 @@ export default function DataTableUsuarioInterprete({ interpretesIds }: DataTable
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const rows = interpretesData.map((data) =>
+    createData(data.nome_projeto, data.total_quadriculas_atribuidas || 0, data.feitas || 0, data.andamento || 0, data.km_mapeados || 0)
+  );
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>

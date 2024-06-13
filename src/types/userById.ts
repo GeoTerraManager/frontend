@@ -18,3 +18,5 @@ export interface UserById {
   qtd_total_apontamentos: number;
   projetos: ProjectByUser[];
 }
+
+
