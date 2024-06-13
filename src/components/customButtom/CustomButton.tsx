@@ -1,9 +1,9 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Button, { ButtonProps } from "@mui/material/Button";
-import COLORS from "../../../constant/COLORS";
-import FONT from "../../../constant/FONT";
-import { usePageData } from "../../../context/PageDataContext";
+import COLORS from "../../constant/COLORS";
+import FONT from "../../constant/FONT";
+import { usePageData } from "../../context/PageDataContext";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
@@ -23,11 +23,11 @@ const CustomButton = () => {
   const { data } = usePageData();
 
   const exportToPDF = () => {
-    const doc = new jsPDF();
+    const doc = new jsPDF({ orientation: 'portrait' });
     let y = 10;
 
     doc.setFontSize(18);
-    doc.text("Dados da Página", 10, y);
+    doc.text("", 10, y);
     y += 10;
 
     if (data) {
@@ -52,14 +52,35 @@ const CustomButton = () => {
         body: rows,
         startY: y,
         theme: "striped",
-        styles: { cellWidth: 'wrap' },
-        tableWidth: 'auto'
+        styles: { 
+          fontSize: 10 // Reduce font size to fit more content
+        },
+        columnStyles: {
+          0: { cellWidth: 'auto' }, // Allow first column to wrap text
+        },
+        headStyles: {
+          cellPadding: 2,
+          minCellHeight: 10,
+          overflow: 'linebreak', // Allow titles to break into multiple lines
+        },
+        tableWidth: 'auto', // Adjust table width to fit content
+        margin: { left: 10, right: 10 }, // Add margins to prevent cutting off
       });
+
+      // Determine the filename
+      let fileName;
+      if (Array.isArray(data)) {
+        fileName = "projetos.pdf";
+      } else {
+        const firstKey = Object.keys(data)[0];
+        fileName = `${data[firstKey]}.pdf`;
+      }
+
+      doc.save(fileName);
     } else {
       doc.text("No data available", 10, y);
+      doc.save("dados_pagina.pdf");
     }
-
-    doc.save("dados_pagina.pdf");
   };
 
   return (

@@ -12,11 +12,13 @@ import getProjectById from "../services/getProjectById";
 import SubTitle from "../components/Title/subTitle";
 import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
-import DataTableUsuario from "../components/datatable/dataTableUsuario";
 import ProjectById from "../types/projectById";
+
+
 import UsersByProject from "../types/usersByProject";
 import getUsersByProject from "../services/getUsersByProject";
 import DataTableUsuarioProjetos from "../components/datatable/dataTableUsuarioProjetos";
+
 
 
 const DadosProjeto = () => {
@@ -24,6 +26,8 @@ const DadosProjeto = () => {
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<ProjectById | null>(null);
   const { setData } = usePageData(); // Obtendo a função setData do contexto
+  const [interpretesData, setInterpretesData] = useState<ProjectByUser[]>([]);
+  const [revisoresData, setRevisoresData] = useState<ProjectByUser[]>([]);
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -39,6 +43,40 @@ const DadosProjeto = () => {
     
     fetchProject();
   }, [id, setData]);
+
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      if (project) {
+        const interpretes = await Promise.all(
+          project.interpretes.map((id) => getUserById(id))
+        );
+        const revisores = await Promise.all(
+          project.revisores.map((id) => getUserById(id))
+        );
+
+        const interpretesProjects = interpretes
+          .filter((user): user is UserById => user !== undefined)
+          .flatMap((user) =>
+            user.projetos.filter(
+              (proj) => proj.nome_projeto === project.nomeProjeto && proj.cargo === "INTERPRETE"
+            )
+          );
+
+        const revisoresProjects = revisores
+          .filter((user): user is UserById => user !== undefined)
+          .flatMap((user) =>
+            user.projetos.filter(
+              (proj) => proj.nome_projeto === project.nomeProjeto && proj.cargo === "REVISOR"
+            )
+          );
+
+        setInterpretesData(interpretesProjects);
+        setRevisoresData(revisoresProjects);
+      }
+    };
+
+    fetchUsersData();
+  }, [project]);
 
   return loading ? (
     <p>Loading...</p>
@@ -61,9 +99,11 @@ const DadosProjeto = () => {
         style={{ marginBottom: 30 }}
       >
         <Grid item xs={11} sm={11} md={11}>
+
           <SubTitle>Usuários</SubTitle>
           {/* <DataTableUsuario /> */}
           <DataTableUsuarioProjetos projectId={id} />
+
         </Grid>
       </Grid>
     </Grid>

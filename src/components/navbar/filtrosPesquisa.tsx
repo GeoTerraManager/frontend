@@ -1,3 +1,4 @@
+// filtrosPesquisa.tsx
 import { Select, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
@@ -14,7 +15,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     padding: "4px 4px 4px 4px",
     color: "gray",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
-    // Use the system font instead of the default Roboto font.
     "&:focus": {
       borderRadius: 4,
       borderColor: "#80bdff",
@@ -23,31 +23,31 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const FiltroPesquisa = () => {
+interface FiltroPesquisaProps {
+  setFilter: (filter: string) => void;
+}
+
+const FiltroPesquisa: React.FC<FiltroPesquisaProps> = ({ setFilter }) => {
   return (
-    <>
-      <Select
-        defaultValue="all"
-        style={{
-          marginRight: "10px",
-          marginLeft: "10px",
-          minWidth: "150px",
-          backgroundColor: "white",
-          maxHeight: "33px",
-          borderRadius: 3,
-          borderWidth: 0,
-          borderColor: "white",
-        }}
-        input={<BootstrapInput />}
-      >
-        <MenuItem value="all">Pesquisar por...</MenuItem>
-        <MenuItem value="option1">Projeto</MenuItem>
-        <MenuItem value="option2">Analista</MenuItem>
-        <MenuItem value="option2">Revisor</MenuItem>
-        <MenuItem value="option2">Interprete</MenuItem>
-        <MenuItem value="option2">Periodo</MenuItem>
-      </Select>
-    </>
+    <Select
+      defaultValue="all"
+      style={{
+        marginRight: "10px",
+        marginLeft: "10px",
+        minWidth: "150px",
+        backgroundColor: "white",
+        maxHeight: "33px",
+        borderRadius: 3,
+        borderWidth: 0,
+        borderColor: "white",
+      }}
+      input={<BootstrapInput />}
+      onChange={(e) => setFilter(e.target.value as string)}
+    >
+      <MenuItem value="all">Pesquisar por...</MenuItem>
+      <MenuItem value="option1">Projetos</MenuItem>
+      <MenuItem value="option2">Usuários</MenuItem>
+    </Select>
   );
 };
 

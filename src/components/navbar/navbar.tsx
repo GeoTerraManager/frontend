@@ -23,15 +23,9 @@ const MainNavbar: React.FC = () => {
     <AppBar position="fixed" style={{ backgroundColor: COLORS.secondary }}>
       <Container
         maxWidth="lg"
-        style={{ display: "flex", justifyContent: "space-between" }}
+        style={{ display: "flex", justifyContent: "end" }}
       >
-        <Toolbar>
-          <BarraPesquisa />
-          <FiltroPesquisa />
-          <IconButton edge="end" color="inherit" aria-label="search">
-            <SearchSharpIcon />
-          </IconButton>
-        </Toolbar>
+      
         <img
           src={logo}
           alt="logo"

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,18 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 
 interface Column {
-  id:
-    | "nome"
-    | "atribuidas"
-    | "feitas"
-    | "refazer"
-    | "refeitas"
-    | "revisadas"
-    | "inicio_projeto";
+  id: "nome" | "apontamento";
   label: string;
   minWidth?: number;
   align?: "center";
@@ -26,81 +18,31 @@ interface Column {
 
 const columns: readonly Column[] = [
   { id: "nome", label: "Nome", minWidth: 170 },
-  { id: "atribuidas", label: "Atribuidas", minWidth: 100 },
-  {
-    id: "refazer",
-    label: "Refazer",
-    minWidth: 170,
-  },
-  {
-    id: "refeitas",
-    label: "Refeitas",
-    minWidth: 170,
-  },
-  {
-    id: "revisadas",
-    label: "Revisadas",
-    minWidth: 170,
-  },
-  {
-    id: "inicio_projeto",
-    label: "Inicio Projeto",
-    minWidth: 170,
-  },
+  { id: "apontamento", label: "Apontamentos", minWidth: 170 },
 ];
 
 interface Data {
   nome: string;
-  atribuidas: string;
-  feitas: string;
-  refazer: string;
-  refeitas: number;
-  revisadas: React.ReactNode;
-  inicio_projeto: string;
+  apontamento: number;
 }
 
-function createData(
-  nome: string,
-  atribuidas: string,
-  feitas: string,
-  refazer: string,
-  refeitas: number,
-  revisadas: React.ReactNode,
-  inicio_projeto: string
-): Data {
+function createData(nome: string, apontamento: number): Data {
   return {
     nome,
-    atribuidas,
-    feitas,
-    refazer,
-    refeitas,
-    revisadas,
-    inicio_projeto,
+    apontamento,
   };
 }
 
 const rows = [
-  createData(
-    "John Doe",
-    "10",
-    "8",
-    "2",
-    5,
-    <LinearProgress variant="determinate" value={50} />,
-    "2024-01-01"
-  ),
-  createData(
-    "Jane Smith",
-    "8",
-    "7",
-    "1",
-    3,
-    <LinearProgress variant="determinate" value={30} />,
-    "2024-01-05"
-  ),
+  createData("John Doe", 25),
+  createData("Jane Smith", 18),
 ];
 
-export default function DataTableUsuario() {
+interface DataTableRevisorProps {
+  revisoresIds: string[];
+}
+
+export default function DataTableRevisor({ revisoresIds }: DataTableRevisorProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
