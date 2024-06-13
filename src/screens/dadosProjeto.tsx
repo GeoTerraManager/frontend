@@ -12,7 +12,7 @@ import getProjectById from "../services/getProjectById";
 import SubTitle from "../components/Title/subTitle";
 import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
-import DataTableUsuario from "../components/datatable/dataTableUsuario";
+import DataTableUsuario from "../components/datatable/dataTablePesquisa";
 import ProjectById from "../types/projectById";
 
 
@@ -58,7 +58,7 @@ const DadosProjeto = () => {
       >
         <Grid item xs={11} sm={11} md={11}>
           <SubTitle>Interpretes</SubTitle>
-          <DataTableUsuario />
+         
         </Grid>
       </Grid>
     </Grid>

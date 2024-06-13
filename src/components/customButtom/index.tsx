@@ -1,5 +1,5 @@
 import { Grid, Button } from "@mui/material";
-import SubTitle from "../../Title/subTitle";
+import SubTitle from "../Title/subTitle";
 import CustomButtom from "./CustomButton";
 
 export const DadosRevisores = () => {

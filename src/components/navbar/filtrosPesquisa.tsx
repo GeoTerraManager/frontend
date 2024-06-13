@@ -1,6 +1,11 @@
-import { Select, MenuItem } from "@mui/material";
+import React from "react";
+import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+
+interface FiltroPesquisaProps {
+  setFilter: (filter: string) => void;
+}
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -14,7 +19,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     padding: "4px 4px 4px 4px",
     color: "gray",
     transition: theme.transitions.create(["border-color", "box-shadow"]),
-    // Use the system font instead of the default Roboto font.
     "&:focus": {
       borderRadius: 4,
       borderColor: "#80bdff",
@@ -23,31 +27,31 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const FiltroPesquisa = () => {
+const FiltroPesquisa: React.FC<FiltroPesquisaProps> = ({ setFilter }) => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setFilter(event.target.value);
+  };
+
   return (
-    <>
-      <Select
-        defaultValue="all"
-        style={{
-          marginRight: "10px",
-          marginLeft: "10px",
-          minWidth: "150px",
-          backgroundColor: "white",
-          maxHeight: "33px",
-          borderRadius: 3,
-          borderWidth: 0,
-          borderColor: "white",
-        }}
-        input={<BootstrapInput />}
-      >
-        <MenuItem value="all">Pesquisar por...</MenuItem>
-        <MenuItem value="option1">Projeto</MenuItem>
-        <MenuItem value="option2">Analista</MenuItem>
-        <MenuItem value="option2">Revisor</MenuItem>
-        <MenuItem value="option2">Interprete</MenuItem>
-        <MenuItem value="option2">Periodo</MenuItem>
-      </Select>
-    </>
+    <Select
+      defaultValue="all"
+      style={{
+        marginRight: "10px",
+        marginLeft: "10px",
+        minWidth: "150px",
+        backgroundColor: "white",
+        maxHeight: "33px",
+        borderRadius: 3,
+        borderWidth: 0,
+        borderColor: "white",
+      }}
+      input={<BootstrapInput />}
+      onChange={handleChange}
+    >
+      <MenuItem value="all">Pesquisar por...</MenuItem>
+      <MenuItem value="option1">Projeto</MenuItem>
+      <MenuItem value="option2">Analista</MenuItem>
+    </Select>
   );
 };
 

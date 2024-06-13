@@ -7,100 +7,28 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
 
 interface Column {
-  id:
-    | "nome"
-    | "atribuidas"
-    | "feitas"
-    | "refazer"
-    | "refeitas"
-    | "revisadas"
-    | "inicio_projeto";
+  id: "resultado";
   label: string;
   minWidth?: number;
   align?: "center";
 }
 
 const columns: readonly Column[] = [
-  { id: "nome", label: "Nome", minWidth: 170 },
-  { id: "atribuidas", label: "Atribuidas", minWidth: 100 },
-  {
-    id: "refazer",
-    label: "Refazer",
-    minWidth: 170,
-  },
-  {
-    id: "refeitas",
-    label: "Refeitas",
-    minWidth: 170,
-  },
-  {
-    id: "revisadas",
-    label: "Revisadas",
-    minWidth: 170,
-  },
-  {
-    id: "inicio_projeto",
-    label: "Inicio Projeto",
-    minWidth: 170,
-  },
+  { id: "resultado", label: "Resultado", minWidth: 170 },
 ];
 
 interface Data {
-  nome: string;
-  atribuidas: string;
-  feitas: string;
-  refazer: string;
-  refeitas: number;
-  revisadas: React.ReactNode;
-  inicio_projeto: string;
+  resultado: string;
 }
 
-function createData(
-  nome: string,
-  atribuidas: string,
-  feitas: string,
-  refazer: string,
-  refeitas: number,
-  revisadas: React.ReactNode,
-  inicio_projeto: string
-): Data {
-  return {
-    nome,
-    atribuidas,
-    feitas,
-    refazer,
-    refeitas,
-    revisadas,
-    inicio_projeto,
-  };
+interface DataTablePesquisaProps {
+  rows: Data[];
 }
 
-const rows = [
-  createData(
-    "John Doe",
-    "10",
-    "8",
-    "2",
-    5,
-    <LinearProgress variant="determinate" value={50} />,
-    "2024-01-01"
-  ),
-  createData(
-    "Jane Smith",
-    "8",
-    "7",
-    "1",
-    3,
-    <LinearProgress variant="determinate" value={30} />,
-    "2024-01-05"
-  ),
-];
-
-export default function DataTableUsuario() {
+const DataTablePesquisa: React.FC<DataTablePesquisaProps> = ({ rows }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -145,19 +73,7 @@ export default function DataTableUsuario() {
                           key={column.id}
                           align={column.align || "left"}
                         >
-                          {column.id === "nome" ? (
-                            <Link
-                              to="/dados-usuario"
-                              style={{
-                                textDecoration: "none",
-                                color: "inherit",
-                              }}
-                            >
-                              {value}
-                            </Link>
-                          ) : (
-                            value
-                          )}
+                          {value}
                         </TableCell>
                       );
                     })}
@@ -178,4 +94,6 @@ export default function DataTableUsuario() {
       />
     </Paper>
   );
-}
+};
+
+export default DataTablePesquisa;

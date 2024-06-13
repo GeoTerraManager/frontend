@@ -2,7 +2,7 @@ import AppRouter from "./routers/navigation";
 import "./index.css";
 import { AuthProvider } from "./context/AuthContext";
 import { PageDataProvider } from "./context/PageDataContext";
-import ExportButton from "./components/dadosprojeto/dadosCargo/CustomButton";
+import ExportButton from "./components/customButtom/CustomButton";
 
 function App() {
   return (

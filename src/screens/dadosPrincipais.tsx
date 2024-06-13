@@ -6,7 +6,9 @@ import { useAuth } from "../context/AuthContext";
 import MainNavbar from "../components/navbar/navbar";
 import NaoAutorizado from "../components/Errors/NãoAutorizado";
 import Title from "../components/Title/title";
-import CustomButton from "../components/dadosprojeto/dadosCargo/CustomButton";
+import CustomButton from "../components/customButtom/CustomButton";
+import SearchNavbar from "../components/navbar/searchNavbar";
+import DataTablePesquisa from "../components/datatable/dataTablePesquisa";
 
 const DadosPrincipais = () => {
   const { loading, authorized } = useAuth();
@@ -18,8 +20,9 @@ const DadosPrincipais = () => {
      
         
       <Grid container alignItems="center" justifyContent="center">
-      <MainNavbar/>
-        <Grid item xs={11} sm={11} md={11} style={{marginTop: 50}}>
+      <SearchNavbar/>
+        <Grid item xs={11} sm={11} md={11} style={{marginTop: 60}}>
+          
          <Title>Projetos</Title>
        
           <DataTable />
