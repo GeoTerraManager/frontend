@@ -13,10 +13,13 @@ import SubTitle from "../components/Title/subTitle";
 import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
 import ProjectById from "../types/projectById";
-import DataTableUsuario from "../components/datatable/dataTableUsuarioInterprete";
-import DataTableUsuarioRevisor from "../components/datatable/dataTableUsuarioRevisor";
-import getUserById from "../services/getUserById";
-import { UserById, ProjectByUser } from "../types/userById";
+
+
+import UsersByProject from "../types/usersByProject";
+import getUsersByProject from "../services/getUsersByProject";
+import DataTableUsuarioProjetos from "../components/datatable/dataTableUsuarioProjetos";
+
+
 
 const DadosProjeto = () => {
   const { loading, authorized } = useAuth();
@@ -32,11 +35,12 @@ const DadosProjeto = () => {
         const projectData = await getProjectById(id);
         if (projectData) {
           setProject(projectData);
-          setData(projectData); // Definindo os dados do projeto no contexto
+          setData(projectData);
         }
       }
     };
 
+    
     fetchProject();
   }, [id, setData]);
 
@@ -95,12 +99,11 @@ const DadosProjeto = () => {
         style={{ marginBottom: 30 }}
       >
         <Grid item xs={11} sm={11} md={11}>
-          <SubTitle>Interpretes</SubTitle>
-          <DataTableUsuario interpretesData={interpretesData} />
-        </Grid>
-        <Grid item xs={11} sm={11} md={11}>
-          <SubTitle>Revisores</SubTitle>
-          <DataTableUsuarioRevisor revisoresData={revisoresData} />
+
+          <SubTitle>Usuários</SubTitle>
+          {/* <DataTableUsuario /> */}
+          <DataTableUsuarioProjetos projectId={id} />
+
         </Grid>
       </Grid>
     </Grid>
