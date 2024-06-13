@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Container,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from "@mui/material";
+import { Container, AppBar, Toolbar, IconButton } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import FiltroPesquisa from "./filtrosPesquisa";
 import BarraPesquisa from "./barraPesquisa";
 import COLORS from "../../constant/COLORS";
 import axios from "axios";
 import DataTablePesquisa from "../datatable/dataTablePesquisa";
+import { Data } from "../datatable/dataTablePesquisa";
 
 const SearchNavbar: React.FC = () => {
   const navigate = useNavigate();
   const logo = require("../../assets/logo-simples.png") as string;
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("all");
-  const [rows, setRows] = useState<{ resultado: string }[]>([]);
+  const [rows, setRows] = useState<Data[]>([]);
   const [searchPerformed, setSearchPerformed] = useState(false);
 
   const handleLogoClick = () => {
@@ -44,7 +40,7 @@ const SearchNavbar: React.FC = () => {
       const data = response.data;
 
       const newRows = data.map((item: any) => {
-        return { resultado: item.name };
+        return { resultado: item.name, type: item.type, id: item.id };
       });
 
       setRows(newRows);
@@ -63,10 +59,7 @@ const SearchNavbar: React.FC = () => {
   return (
     <>
       <AppBar position="fixed" style={{ backgroundColor: COLORS.secondary }}>
-        <Container
-          maxWidth="lg"
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
+        <Container maxWidth="lg" style={{ display: "flex", justifyContent: "space-between" }}>
           <Toolbar>
             <BarraPesquisa setSearchQuery={setSearchQuery} />
             <FiltroPesquisa setFilter={setFilter} />
@@ -74,13 +67,7 @@ const SearchNavbar: React.FC = () => {
               <SearchSharpIcon />
             </IconButton>
           </Toolbar>
-          <img
-            src={logo}
-            alt="logo"
-            height="40vw"
-            style={{ margin: 10, cursor: "pointer" }}
-            onClick={handleLogoClick}
-          />
+          <img src={logo} alt="logo" height="40vw" style={{ margin: 10, cursor: "pointer" }} onClick={handleLogoClick} />
         </Container>
       </AppBar>
       <Container style={{ marginTop: "80px" }}>

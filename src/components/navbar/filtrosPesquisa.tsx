@@ -1,11 +1,7 @@
-import React from "react";
-import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
+// filtrosPesquisa.tsx
+import { Select, MenuItem } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-
-interface FiltroPesquisaProps {
-  setFilter: (filter: string) => void;
-}
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -27,11 +23,11 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const FiltroPesquisa: React.FC<FiltroPesquisaProps> = ({ setFilter }) => {
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setFilter(event.target.value);
-  };
+interface FiltroPesquisaProps {
+  setFilter: (filter: string) => void;
+}
 
+const FiltroPesquisa: React.FC<FiltroPesquisaProps> = ({ setFilter }) => {
   return (
     <Select
       defaultValue="all"
@@ -46,11 +42,11 @@ const FiltroPesquisa: React.FC<FiltroPesquisaProps> = ({ setFilter }) => {
         borderColor: "white",
       }}
       input={<BootstrapInput />}
-      onChange={handleChange}
+      onChange={(e) => setFilter(e.target.value as string)}
     >
       <MenuItem value="all">Pesquisar por...</MenuItem>
-      <MenuItem value="option1">Projeto</MenuItem>
-      <MenuItem value="option2">Analista</MenuItem>
+      <MenuItem value="option1">Projetos</MenuItem>
+      <MenuItem value="option2">Usuários</MenuItem>
     </Select>
   );
 };
