@@ -14,6 +14,9 @@ import { useParams } from "react-router-dom";
 import { usePageData } from "../context/PageDataContext";
 import DataTableUsuario from "../components/datatable/dataTableUsuario";
 import ProjectById from "../types/projectById";
+import UsersByProject from "../types/usersByProject";
+import getUsersByProject from "../services/getUsersByProject";
+import DataTableUsuarioProjetos from "../components/datatable/dataTableUsuarioProjetos";
 
 
 const DadosProjeto = () => {
@@ -28,11 +31,12 @@ const DadosProjeto = () => {
         const projectData = await getProjectById(id);
         if (projectData) {
           setProject(projectData);
-          setData(projectData); // Definindo os dados do projeto no contexto
+          setData(projectData);
         }
       }
     };
 
+    
     fetchProject();
   }, [id, setData]);
 
@@ -57,8 +61,9 @@ const DadosProjeto = () => {
         style={{ marginBottom: 30 }}
       >
         <Grid item xs={11} sm={11} md={11}>
-          <SubTitle>Interpretes</SubTitle>
-          <DataTableUsuario />
+          <SubTitle>Usuários</SubTitle>
+          {/* <DataTableUsuario /> */}
+          <DataTableUsuarioProjetos projectId={id} />
         </Grid>
       </Grid>
     </Grid>
